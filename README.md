@@ -1,128 +1,98 @@
-AFTER82 – Privacy-Preserving Cascade Modeling
-Overview
+AFTER82 – Data Processing & Modeling Framework
 
-AFTER82 is a privacy-first urban resilience modeling framework developed for the Curiosity Cup 2026 – A Global SAS® Student Competition.
+This repository documents the analytical workflow developed for the AFTER82 Curiosity Cup project.
 
-The project proposes a zone-based abstraction approach for modeling cascading impacts in urban transportation networks while strictly avoiding disclosure of sensitive infrastructure details.
+The project focuses on modeling cascading impacts in urban transport networks using open datasets, while ensuring structured abstraction in public reporting.
 
-Using SAS® Viya, we construct an anonymized directed transport graph, simulate disruption propagation via a diffusion-style process, and train supervised models to predict cascade susceptibility all reported exclusively at aggregated zone level.
+The repository emphasizes reproducibility, transparency, and responsible data handling.
+Only aggregated, publication-safe outputs are included.
 
-Core Idea
+Repository Scope
 
-Traditional infrastructure risk studies often expose node-level or facility-level vulnerabilities. AFTER82 introduces:
+This repository contains:
 
-A structural-hazard abstraction layer that enforces privacy by design.
+-Description of open data sources and derived datasets
 
-Instead of reporting specific nodes or facilities, all structural and hazard indicators are aggregated into three structural-hazard categories:
+-Data processing steps (cleaning, filtering, enrichment, aggregation)
 
--LOW
+-High-level SAS® Viya (CAS) workflow notes
 
--MEDIUM
+-Aggregated outputs used for figures and tables in the competition paper
 
--HIGH
+It serves as documentation of the modeling framework rather than a deployable system.
 
-This enables systemic interpretation without operational exposure.
+Data Handling Approach
 
-Methodological Pipeline
+The following elements are intentionally excluded from this repository:
 
-1.Graph Construction
+-Personal data
 
--Directed weighted network built from OpenStreetMap road geometries
+-Node-level infrastructure identifiers
 
--Node–edge representation suitable for graph analytics
+-Point-level geographic coordinates in exported datasets
 
-2.Hazard Enrichment
+-Per-node predictive outputs
 
--GEM Global Active Fault proximity aggregation
+All publicly shared outputs are aggregated at zone level.
 
--District-level ground classification
+Analytical Pipeline Overview
 
--Hazard proxies computed without publishing coordinates
+1. Data Ingestion
 
-3.Zone-Based Privacy Layer
+-OpenStreetMap transport network extracts
 
--Percentile-based grouping using structural and hazard intensity
+-District boundary data
 
--Aggregation ensures non-disclosure of node-level identifiers
+-GEM Global Active Faults dataset
 
-4.Cascade Simulation
+-Optional USGS event summaries
 
--Viral-style diffusion process over discrete time steps
+2. Graph Construction
 
--Generates affected_binary label
+-Directed, distance-weighted transport graph
 
-5.Predictive Modeling
+3. Pilot Subset Filtering
+
+-Six-district subset for controlled experimentation
+
+4. Hazard Context Enrichment
+
+-Aggregated fault exposure metrics
+
+-District-level risk indicators
+
+-Geotechnical proxy variables
+
+5. Scenario Label Generation
+
+-Diffusion-style cascade simulation
+
+-Binary cascade outcome variable
+
+6. Predictive Modeling
 
 -Gradient Boosting
 
 -Random Forest
 
--Evaluation via ROC AUC, KS statistic, misclassification rate
+-Evaluation via ROC AUC and related performance metrics
 
-Repository Structure
-data/
-  safe/                 # Aggregated zone-level CSV outputs only
+7. Structured Reporting Layer
 
-outputs/
-  figures/              # Paper-safe visualizations (heatmaps, summaries)
+-Percentile-based zone abstraction (LOW / MEDIUM / HIGH)
 
-docs/
-  paper/                # Submitted paper versions (if shared)
+-Inter-zone connectivity summaries
 
-src/                    # Optional reproducibility scripts
+-Aggregated topology indicators
 
-Data Policy
+Reproducibility
 
-This repository intentionally excludes:
+Detailed workflow documentation is provided in:
+docs/DATA_PROCESSING.md
 
-Raw coordinates
+Users must independently obtain the referenced open datasets to replicate the modeling pipeline.
 
-Facility names
+Intended Use
 
-Node-level identifiers
-
-Sensitive infrastructure metadata
-
-Only aggregated, publication-safe outputs are included.
-
-Raw open-source inputs (OSM, GEM, etc.) must be obtained independently.
-
-Reproducibility Notes
-
-To reproduce results:
-
-1.Place raw data locally under data/raw/ (not included in repo).
-
-2.Execute graph construction and enrichment pipeline.
-
-3.Run cascade simulation.
-
-4.Generate zone-level aggregated outputs.
-
-5.Train predictive models in SAS Model Studio.
-
-This repository ships only final aggregated outputs for transparency and academic communication.
-
-Ethical & Privacy Statement
-
-AFTER82 adopts a strict “privacy-by-design” principle:
-
--No operational targeting
-
--No infrastructure vulnerability exposure
-
--No publication of location-specific insights
-
-All reported findings reflect systemic structural patterns at aggregated zone level.
-
-Competition Context
-
-Developed for:
-Curiosity Cup 2026 – A Global SAS® Student Competition
-
-This project demonstrates how privacy-preserving graph analytics can deliver high-discrimination predictive signals while enforcing structural non-disclosure constraints.
-
-License
-
-Open for academic reference.
-Not intended for operational risk targeting.
+This repository supports academic transparency and competition review.
+It is not designed for operational infrastructure assessment.
