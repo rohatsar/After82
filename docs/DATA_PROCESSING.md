@@ -52,6 +52,22 @@ Event-level reporting is not included in publication outputs.
 
 Where available, coarse district-level soil proxies (z_class) were incorporated as vulnerability context indicators.
 
+1.5 Administrative Boundaries (geoBoundaries via HDX)
+
+Administrative district boundaries were obtained from the geoBoundaries dataset for Turkey (ADM2 level), distributed via the Humanitarian Data Exchange (HDX) platform:
+
+Humanitarian Data Exchange (HDX). 2026. “geoBoundaries – Admin boundaries for Turkey: geoBoundaries-TUR-ADM2 GeoJSON.”  
+Available at: https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-turkey/resource/ad890c18-d8e4-4d61-8f3e-cdc5c68fc084
+
+The dataset is released under the Creative Commons Attribution 4.0 (CC BY 4.0) license.
+
+Boundary geometries were used to:
+- Assign nodes to administrative districts via spatial join
+- Compute district-level hazard exposure metrics
+- Support aggregated zone-level reporting
+
+Raw boundary geometries are not redistributed in this repository.
+
 2. Processing Environment (SAS Viya CAS)
 
 All processing and modeling were conducted in SAS® Viya for Learners using CAS (Cloud Analytic Services).
